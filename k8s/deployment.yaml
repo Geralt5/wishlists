@@ -22,7 +22,7 @@ spec:
       restartPolicy: Always
       containers:
       - name: wishlists
-        image: cluster-registry:5000/wishlists:1.0
+        image: cluster-registry:5000/petshop:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8080
