@@ -31,7 +31,7 @@ class Wishlist(db.Model, PersistentBase):
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)  # wishlist id
     name = db.Column(db.String(100), nullable=False)  # wishlist name
-    updated_time = db.Column(db.DateTime, nullable=False)
+    updated_time = db.Column(db.DateTime, nullable=True)
     note = db.Column(db.String(1000), nullable=True)
     is_favorite = db.Column(db.Boolean, default=False)
 

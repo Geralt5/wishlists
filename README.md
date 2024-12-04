@@ -16,7 +16,7 @@ read_wishlists         GET      /wishlists/<wishlist_id>
 update_wishlists       PUT      /wishlists/<wishlist_id>
 delete_wishlists       DELETE   /wishlists/<wishlist_id>
 
-list_items             GET      /wishlists/<int:wishlist_id>/items
+list_items             GET      /wishlists/<wishlist_id>/items
 create_items           POST     /wishlists/<wishlist_id>/items
 read_items             GET      /wishlists/<wishlist_id>/items/<item_id>
 update_item            PUT      /wishlists/<wishlist_id>/items/<item_id>

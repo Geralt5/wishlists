@@ -32,7 +32,7 @@ from .factories import WishlistFactory, ItemsFactory
 DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql+psycopg://postgres:postgres@localhost:5432/testdb"
 )
-BASE_URL = "/wishlists"
+BASE_URL = "/api/wishlists"
 
 
 ######################################################################
@@ -602,9 +602,7 @@ class TestWishlistService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = response.get_json()
         logging.debug("Response data = %s", data)
-        self.assertIn(
-            "404 Not Found: Item with id '0' could not be found.", data["message"]
-        )
+        self.assertIn("Item with id '0' could not be found.", data["message"])
 
     # ----------------------------------------------------------
     # TEST CANCEL ITEM AS FAVORITE
@@ -631,9 +629,7 @@ class TestWishlistService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = response.get_json()
         logging.debug("Response data = %s", data)
-        self.assertIn(
-            "404 Not Found: Item with id '0' could not be found.", data["message"]
-        )
+        self.assertIn("Item with id '0' could not be found.", data["message"])
 
     # TEST MARK WISHLIST AS FAVORITE
     # ----------------------------------------------------------
@@ -654,9 +650,7 @@ class TestWishlistService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = response.get_json()
         logging.debug("Response data = %s", data)
-        self.assertIn(
-            "404 Not Found: Wishlist with id '0' could not be found.", data["message"]
-        )
+        self.assertIn("Wishlist with id '0' could not be found.", data["message"])
 
     # ----------------------------------------------------------
     # TEST CANCEL WISHLIST AS FAVORITE
@@ -680,9 +674,7 @@ class TestWishlistService(TestCase):
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
         data = response.get_json()
         logging.debug("Response data = %s", data)
-        self.assertIn(
-            "404 Not Found: Wishlist with id '0' could not be found.", data["message"]
-        )
+        self.assertIn("Wishlist with id '0' could not be found.", data["message"])
 
     def test_query_wishlist_by_favorite(self):
         """It should Query Wishlist by favorite"""

@@ -132,3 +132,5 @@ class Items(db.Model, PersistentBase):
         return cls.query.filter(
             cls.wishlist_id == wishlist_id, cls.is_favorite == is_favorite
         )
+
+    # The following code will cause errors for the Items RestAPI

@@ -2,6 +2,7 @@
     "cSpell.words": [
         "sqlalchemy",
         "psycopg",
-        "testdb"
+        "testdb",
+        "jsonify"
     ]
 }

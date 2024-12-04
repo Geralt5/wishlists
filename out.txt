@@ -1,0 +1,2196 @@
+Running tests...
+============================= test session starts ==============================
+platform linux -- Python 3.11.10, pytest-8.3.4, pluggy-1.5.0
+rootdir: /app
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-5.0.0, pspec-0.0.4, Faker-33.1.0
+collected 55 items
+
+tests/test_cli_commands.py                                                                                 
+Flask CLI Command Tests
+[92m ✓ It should call the db-create command[0m
+[92m ✓ It should call the db-drop command[0m
+                                                                         [  0%]
+tests/test_items.py                                                                                 
+Items Model Test Cases
+[92m ✓ It should create a new Item in the Wishlist[0m
+[92m ✓ It should Delete an item from a Wishlist[0m
+[92m ✓ It should not Deserialize an item with a KeyError[0m
+[92m ✓ It should not Deserialize an item with a TypeError[0m
+[92m ✓ It should find Items by Category[0m
+[92m ✓ It should Find Items by is favorite[0m
+[92m ✓ It should find Items by Price[0m
+[92m ✓ It should Read a Item[0m
+[92m ✓ It should Update a Wishlist Item[0m
+[92m ✓ It should fail to Update a Wishlist Item with invalid quantity type[0m
+                                                                         [  0%]
+tests/test_routes.py                                                                                 
+REST API Server Tests
+[91m ✗ It should cancel an item as favorite[0m
+[91m ✗ It should cancel an wishlist as favorite[0m
+[91m ✗ It should Add an item to an wishlist[0m
+[92m ✓ It should return 404 when the Wishlist is not found[0m
+[92m ✓ It should Create a new Wishlist[0m
+[92m ✓ It should not Create a Pet with no content type[0m
+[92m ✓ It should return a 400 error for invalid data[0m
+[91m ✗ It should Delete an Items[0m
+[92m ✓ It should Delete a Wishlist[0m
+[91m ✗ It should get/read all items in a wishlist**[0m
+[92m ✓ It should Get a list of all Wishlists*[0m
+[92m ✓ It should not Get a item thats not found[0m
+[91m ✗ It should Get a single item[0m
+[92m ✓ It should Read a single wishlist[0m
+[92m ✓ It should not Read an wishlist that is not found[0m
+[92m ✓ It should get the health endpoint[0m
+[92m ✓ It should call the home page[0m
+[91m ✗ It should mark an item as favorite[0m
+[91m ✗ It should mark an wishlist as favorite[0m
+[91m ✗ It should Query Items by favorite[0m
+[91m ✗ It should Query Items by Category within a Wishlist[0m
+[91m ✗ It should Query Items by Name within a Wishlist[0m
+[91m ✗ It should Query Items by Price within a Wishlist[0m
+[92m ✓ It should Query Wishlist by favorite[0m
+[92m ✓ It should not Accept any requests with unsupported methods[0m
+[92m ✓ It should not Create when sending unsupported media type[0m
+[92m ✓ It should Update an existing Wishlist[0m
+[91m ✗ It should Update a wishlist item in a wishlist[0m
+[91m ✗ It should not Update a wishlist item that does not exist[0m
+[92m ✓ It should not Update a Wishlist that does not exist[0m
+                                                                         [  0%]
+tests/test_wishlist.py                                                                                 
+Cases for Wishlist Model
+[92m ✓ It should create a Wishlist[0m
+[92m ✓ It should not create an Wishlist on database error[0m
+[92m ✓ It should fail to create a Wishlist with a null name and raise DataValidationError[0m
+[92m ✓ It should Delete a Wishlist[0m
+[92m ✓ It should not delete an Wishlist on database error[0m
+[92m ✓ It should correctly deserialize a Wishlist with valid items[0m
+[92m ✓ It should not Deserialize a wishlist with a KeyError[0m
+[92m ✓ It should not Deserialize a wishlist with a TypeError[0m
+[92m ✓ It should Find Wishlists by Favorite[0m
+[92m ✓ It should Find an Wishlist by name[0m
+[92m ✓ It should Update a Wishlist[0m
+[92m ✓ It should not Update a Wishlist with no id[0m
+[92m ✓ It should not update a Wishlist on database error[0m
+
+
+=================================== FAILURES ===================================
+_______________ TestWishlistService.test_cancel_item_as_favorite _______________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_cancel_item_as_favorite>
+
+    def test_cancel_item_as_favorite(self):
+        """It should cancel an item as favorite"""
+        wishlist = self._create_wishlists(1)[0]
+>       item = self._create_items(wishlist.id, 1)[0]
+
+tests/test_routes.py:615: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_routes.py:97: in _create_items
+    response = self.client.post(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa60cc790>
+endpoint = 'get_items', values = {'item_id': 41, 'wishlist_id': 112}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+_____________ TestWishlistService.test_cancel_wishlist_as_favorite _____________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_cancel_wishlist_as_favorite>
+
+    def test_cancel_wishlist_as_favorite(self):
+        """It should cancel an wishlist as favorite"""
+        wishlist = self._create_wishlists(1)[0]
+    
+        self.client.put(f"{BASE_URL}/{wishlist.id}/favorite")
+    
+        # Cancel the wishlist as favorite
+        response = self.client.delete(f"{BASE_URL}/{wishlist.id}/favorite")
+>       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 404 != 200
+
+tests/test_routes.py:672: AssertionError
+____________________ TestWishlistService.test_create_items _____________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_create_items>
+
+    def test_create_items(self):
+        """It should Add an item to an wishlist"""
+        wishlist = self._create_wishlists(1)[0]
+        item = ItemsFactory()
+>       resp = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:170: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa605ab90>
+endpoint = 'get_items', values = {'item_id': 42, 'wishlist_id': 114}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+____________________ TestWishlistService.test_delete_items _____________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_delete_items>
+
+    def test_delete_items(self):
+        """It should Delete an Items"""
+        wishlist = self._create_wishlists(1)[0]
+        item = ItemsFactory()
+>       response = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:219: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa6000310>
+endpoint = 'get_items', values = {'item_id': 43, 'wishlist_id': 117}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+______________ TestWishlistService.test_get_all_items_in_wishlist ______________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_get_all_items_in_wishlist>
+
+    def test_get_all_items_in_wishlist(self):
+        """It should get/read all items in a wishlist**"""
+    
+        wishlist = self._create_wishlists(1)[0]
+        resp = self.client.get(
+            f"{BASE_URL}/{wishlist.id}", content_type="application/json"
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+    
+        data = resp.get_json()
+        self.assertEqual(data["name"], wishlist.name)
+        wishlist.id = data["id"]
+    
+        item = ItemsFactory()
+>       resp = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:428: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa5a34350>
+endpoint = 'get_items', values = {'item_id': 44, 'wishlist_id': 119}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+______________________ TestWishlistService.test_get_items ______________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_get_items>
+
+    def test_get_items(self):
+        """It should Get a single item"""
+        # get the id of a item
+        wishlist = self._create_wishlists(1)[0]
+>       test_item = self._create_items(wishlist.id, 1)[0]
+
+tests/test_routes.py:239: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_routes.py:97: in _create_items
+    response = self.client.post(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa5c66710>
+endpoint = 'get_items', values = {'item_id': 45, 'wishlist_id': 126}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+________________ TestWishlistService.test_mark_item_as_favorite ________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_mark_item_as_favorite>
+
+    def test_mark_item_as_favorite(self):
+        """It should mark an item as favorite"""
+        wishlist = self._create_wishlists(1)[0]
+>       item = self._create_items(wishlist.id, 1)[0]
+
+tests/test_routes.py:590: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_routes.py:97: in _create_items
+    response = self.client.post(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa6165810>
+endpoint = 'get_items', values = {'item_id': 46, 'wishlist_id': 128}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+______________ TestWishlistService.test_mark_wishlist_as_favorite ______________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_mark_wishlist_as_favorite>
+
+    def test_mark_wishlist_as_favorite(self):
+        """It should mark an wishlist as favorite"""
+        wishlist = self._create_wishlists(1)[0]
+    
+        # Mark the wishlist as favorite
+        response = self.client.put(f"{BASE_URL}/{wishlist.id}/favorite")
+>       self.assertEqual(response.status_code, status.HTTP_200_OK)
+E       AssertionError: 404 != 200
+
+tests/test_routes.py:646: AssertionError
+_______________ TestWishlistService.test_query_item_by_favorite ________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_query_item_by_favorite>
+
+    def test_query_item_by_favorite(self):
+        """It should Query Items by favorite"""
+        wishlist = self._create_wishlists(1)[0]
+>       items = self._create_items(wishlist.id, 10)
+
+tests/test_routes.py:726: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+tests/test_routes.py:97: in _create_items
+    response = self.client.post(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa6164090>
+endpoint = 'get_items', values = {'item_id': 47, 'wishlist_id': 130}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+_______________ TestWishlistService.test_query_items_by_category _______________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_query_items_by_category>
+
+    def test_query_items_by_category(self):
+        """It should Query Items by Category within a Wishlist"""
+        wishlist = self._create_wishlists(1)[0]
+        resp = self.client.get(
+            f"{BASE_URL}/{wishlist.id}", content_type="application/json"
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+    
+        data = resp.get_json()
+        self.assertEqual(data["name"], wishlist.name)
+        wishlist.id = data["id"]
+    
+        item = ItemsFactory(category="food")
+>       resp = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:489: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa5bdb5d0>
+endpoint = 'get_items', values = {'item_id': 48, 'wishlist_id': 131}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+_________________ TestWishlistService.test_query_items_by_name _________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_query_items_by_name>
+
+    def test_query_items_by_name(self):
+        """It should Query Items by Name within a Wishlist"""
+        # Create a Wishlist
+        wishlist = self._create_wishlists(1)[0]
+        resp = self.client.get(
+            f"{BASE_URL}/{wishlist.id}", content_type="application/json"
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+    
+        data = resp.get_json()
+        self.assertEqual(data["name"], wishlist.name)
+        wishlist.id = data["id"]
+    
+        # Add an Item to the Wishlist
+        item_name = "Sunglasses"
+        item = ItemsFactory(name=item_name)
+>       resp = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:554: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa60cdcd0>
+endpoint = 'get_items', values = {'item_id': 49, 'wishlist_id': 132}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+________________ TestWishlistService.test_query_items_by_price _________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_query_items_by_price>
+
+    def test_query_items_by_price(self):
+        """It should Query Items by Price within a Wishlist"""
+        wishlist = self._create_wishlists(1)[0]
+        resp = self.client.get(
+            f"{BASE_URL}/{wishlist.id}", content_type="application/json"
+        )
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+    
+        data = resp.get_json()
+        self.assertEqual(data["name"], wishlist.name)
+        wishlist.id = data["id"]
+    
+        item = ItemsFactory(price=20.5)
+>       resp = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:520: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa607f890>
+endpoint = 'get_items', values = {'item_id': 50, 'wishlist_id': 133}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+________________ TestWishlistService.test_update_wishlist_item _________________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_update_wishlist_item>
+
+    def test_update_wishlist_item(self):
+        """It should Update a wishlist item in a wishlist"""
+        # create a known wishlist and wishlist item
+        wishlist = self._create_wishlists(1)[0]
+        item = ItemsFactory()
+>       resp = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:339: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa5eea690>
+endpoint = 'get_items', values = {'item_id': 51, 'wishlist_id': 145}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+___________ TestWishlistService.test_update_wishlist_item_not_exist ____________
+
+self = <tests.test_routes.TestWishlistService testMethod=test_update_wishlist_item_not_exist>
+
+    def test_update_wishlist_item_not_exist(self):
+        """It should not Update a wishlist item that does not exist"""
+        wishlist = self._create_wishlists(1)[0]
+        item = ItemsFactory()
+>       resp = self.client.post(
+            f"{BASE_URL}/{wishlist.id}/items",
+            json=item.serialize(),
+            content_type="application/json",
+        )
+
+tests/test_routes.py:374: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1167: in post
+    return self.open(*args, **kw)
+/usr/local/lib/python3.11/site-packages/flask/testing.py:234: in open
+    response = super().open(
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1116: in open
+    response_parts = self.run_wsgi_app(request.environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:988: in run_wsgi_app
+    rv = run_wsgi_app(self.application, environ, buffered=buffered)
+/usr/local/lib/python3.11/site-packages/werkzeug/test.py:1264: in run_wsgi_app
+    app_rv = app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1536: in __call__
+    return self.wsgi_app(environ, start_response)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1514: in wsgi_app
+    response = self.handle_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1511: in wsgi_app
+    response = self.full_dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:919: in full_dispatch_request
+    rv = self.handle_user_exception(e)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:671: in error_router
+    return original_handler(f)
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:669: in error_router
+    return self.handle_error(e)
+/usr/local/lib/python3.11/site-packages/flask/app.py:917: in full_dispatch_request
+    rv = self.dispatch_request()
+/usr/local/lib/python3.11/site-packages/flask/app.py:902: in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/api.py:402: in wrapper
+    resp = resource(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask/views.py:110: in view
+    return current_app.ensure_sync(self.dispatch_request)(**kwargs)  # type: ignore[no-any-return]
+/usr/local/lib/python3.11/site-packages/flask_restx/resource.py:41: in dispatch_request
+    resp = meth(*args, **kwargs)
+/usr/local/lib/python3.11/site-packages/flask_restx/marshalling.py:244: in wrapper
+    resp = f(*args, **kwargs)
+service/routes.py:397: in post
+    location_url = url_for(
+/usr/local/lib/python3.11/site-packages/flask/helpers.py:232: in url_for
+    return current_app.url_for(
+/usr/local/lib/python3.11/site-packages/flask/app.py:1121: in url_for
+    return self.handle_url_build_error(error, endpoint, values)
+/usr/local/lib/python3.11/site-packages/flask/app.py:1110: in url_for
+    rv = url_adapter.build(  # type: ignore[union-attr]
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+self = <werkzeug.routing.map.MapAdapter object at 0xffffa6079010>
+endpoint = 'get_items', values = {'item_id': 52, 'wishlist_id': 146}
+method = None, force_external = True, append_unknown = True, url_scheme = None
+
+    def build(
+        self,
+        endpoint: t.Any,
+        values: t.Mapping[str, t.Any] | None = None,
+        method: str | None = None,
+        force_external: bool = False,
+        append_unknown: bool = True,
+        url_scheme: str | None = None,
+    ) -> str:
+        """Building URLs works pretty much the other way round.  Instead of
+        `match` you call `build` and pass it the endpoint and a dict of
+        arguments for the placeholders.
+    
+        The `build` function also accepts an argument called `force_external`
+        which, if you set it to `True` will force external URLs. Per default
+        external URLs (include the server name) will only be used if the
+        target URL is on a different subdomain.
+    
+        >>> m = Map([
+        ...     Rule('/', endpoint='index'),
+        ...     Rule('/downloads/', endpoint='downloads/index'),
+        ...     Rule('/downloads/<int:id>', endpoint='downloads/show')
+        ... ])
+        >>> urls = m.bind("example.com", "/")
+        >>> urls.build("index", {})
+        '/'
+        >>> urls.build("downloads/show", {'id': 42})
+        '/downloads/42'
+        >>> urls.build("downloads/show", {'id': 42}, force_external=True)
+        'http://example.com/downloads/42'
+    
+        Because URLs cannot contain non ASCII data you will always get
+        bytes back.  Non ASCII characters are urlencoded with the
+        charset defined on the map instance.
+    
+        Additional values are converted to strings and appended to the URL as
+        URL querystring parameters:
+    
+        >>> urls.build("index", {'q': 'My Searchstring'})
+        '/?q=My+Searchstring'
+    
+        When processing those additional values, lists are furthermore
+        interpreted as multiple values (as per
+        :py:class:`werkzeug.datastructures.MultiDict`):
+    
+        >>> urls.build("index", {'q': ['a', 'b', 'c']})
+        '/?q=a&q=b&q=c'
+    
+        Passing a ``MultiDict`` will also add multiple values:
+    
+        >>> urls.build("index", MultiDict((('p', 'z'), ('q', 'a'), ('q', 'b'))))
+        '/?p=z&q=a&q=b'
+    
+        If a rule does not exist when building a `BuildError` exception is
+        raised.
+    
+        The build method accepts an argument called `method` which allows you
+        to specify the method you want to have an URL built for if you have
+        different methods for the same endpoint specified.
+    
+        :param endpoint: the endpoint of the URL to build.
+        :param values: the values for the URL to build.  Unhandled values are
+                       appended to the URL as query parameters.
+        :param method: the HTTP method for the rule if there are different
+                       URLs for different methods on the same endpoint.
+        :param force_external: enforce full canonical external URLs. If the URL
+                               scheme is not provided, this will generate
+                               a protocol-relative URL.
+        :param append_unknown: unknown parameters are appended to the generated
+                               URL as query string argument.  Disable this
+                               if you want the builder to ignore those.
+        :param url_scheme: Scheme to use in place of the bound
+            :attr:`url_scheme`.
+    
+        .. versionchanged:: 2.0
+            Added the ``url_scheme`` parameter.
+    
+        .. versionadded:: 0.6
+           Added the ``append_unknown`` parameter.
+        """
+        self.map.update()
+    
+        if values:
+            if isinstance(values, MultiDict):
+                values = {
+                    k: (v[0] if len(v) == 1 else v)
+                    for k, v in dict.items(values)
+                    if len(v) != 0
+                }
+            else:  # plain dict
+                values = {k: v for k, v in values.items() if v is not None}
+        else:
+            values = {}
+    
+        rv = self._partial_build(endpoint, values, method, append_unknown)
+        if rv is None:
+>           raise BuildError(endpoint, values, method, self)
+E           werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'get_items' with values ['item_id', 'wishlist_id']. Did you mean 'health_check' instead?
+
+/usr/local/lib/python3.11/site-packages/werkzeug/routing/map.py:924: BuildError
+=============================== warnings summary ===============================
+../usr/local/lib/python3.11/site-packages/flask_restx/api.py:19
+../usr/local/lib/python3.11/site-packages/flask_restx/api.py:19
+  /usr/local/lib/python3.11/site-packages/flask_restx/api.py:19: DeprecationWarning: jsonschema.RefResolver is deprecated as of v4.18.0, in favor of the https://github.com/python-jsonschema/referencing library, which provides more compliant referencing behavior as well as more flexible APIs for customization. A future release will remove RefResolver. Please file a feature request (on referencing) if you are missing an API for the kind of customization you need.
+    from jsonschema import RefResolver
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+
+---------- coverage: platform linux, python 3.11.10-final-0 ----------
+Name                                Stmts   Miss  Cover   Missing
+-----------------------------------------------------------------
+service/__init__.py                    26      2    92%   76-77
+service/common/cli_commands.py         14      0   100%
+service/common/error_handlers.py       32      6    81%   76-78, 91-93
+service/common/log_handlers.py         10      1    90%   35
+service/common/status.py               45      0   100%
+service/config.py                       7      0   100%
+service/models/__init__.py              3      0   100%
+service/models/items.py                43      1    98%   130
+service/models/persistent_base.py      49      1    98%   41
+service/models/wishlist.py             52      2    96%   54, 126
+service/routes.py                     253     84    67%   221-223, 400, 412-457, 481-500, 511-518, 544, 566-587, 595-616, 628-646, 654-672
+-----------------------------------------------------------------
+TOTAL                                 534     97    82%
+
+FAIL Required test coverage of 95% not reached. Total coverage: 81.84%
+=========================== short test summary info ============================
+FAILED tests/test_routes.py::REST API Server Tests::It should cancel an item as favorite
+FAILED tests/test_routes.py::REST API Server Tests::It should cancel an wishlist as favorite
+FAILED tests/test_routes.py::REST API Server Tests::It should Add an item to an wishlist
+FAILED tests/test_routes.py::REST API Server Tests::It should Delete an Items
+FAILED tests/test_routes.py::REST API Server Tests::It should get/read all items in a wishlist**
+FAILED tests/test_routes.py::REST API Server Tests::It should Get a single item
+FAILED tests/test_routes.py::REST API Server Tests::It should mark an item as favorite
+FAILED tests/test_routes.py::REST API Server Tests::It should mark an wishlist as favorite
+FAILED tests/test_routes.py::REST API Server Tests::It should Query Items by favorite
+FAILED tests/test_routes.py::REST API Server Tests::It should Query Items by Category within a Wishlist
+FAILED tests/test_routes.py::REST API Server Tests::It should Query Items by Name within a Wishlist
+FAILED tests/test_routes.py::REST API Server Tests::It should Query Items by Price within a Wishlist
+FAILED tests/test_routes.py::REST API Server Tests::It should Update a wishlist item in a wishlist
+FAILED tests/test_routes.py::REST API Server Tests::It should not Update a wishlist item that does not exist
+================== 14 failed, 41 passed, 2 warnings in 2.97s ===================

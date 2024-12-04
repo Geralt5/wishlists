@@ -42,11 +42,16 @@ def create_app():
     with app.app_context():
         # Dependencies require we import the routes AFTER the Flask app is created
         # pylint: disable=wrong-import-position, wrong-import-order, unused-import
-        from service import routes  # noqa: F401 E402
-        from service.common import error_handlers, cli_commands  # noqa: F401, E402
+        from service import (
+            routes,
+            models,
+        )  # noqa: F401 E402 # pylint: disable=cyclic-import
+        from service.common import (
+            error_handlers,
+            cli_commands,
+        )  # pylint: disable=unused-import
 
         try:
-            # db.drop_all()
             db.create_all()
         except Exception as error:  # pylint: disable=broad-except
             app.logger.critical("%s: Cannot continue", error)
