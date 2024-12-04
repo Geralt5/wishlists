@@ -24,11 +24,11 @@ and Delete Wishlist from the inventory of wishlists in the WishlistShop
 
 from flask import jsonify, request, abort, url_for
 from flask import current_app as app  # Import Flask application
-from flask_restx import Resource, fields, reqparse, inputs
+from flask_restx import Api, Resource, fields, reqparse, inputs
 
 from service.models import Wishlist, Items
 from service.common import status  # HTTP Status Codes
-from . import api
+
 
 ######################################################################
 # Wishlist Store Service with Swagger
@@ -40,6 +40,24 @@ from . import api
 # PUT /wishlists/{id} - updates a Wishlist record in the database
 # DELETE /wishlists/{id} - deletes a Wishlist record in the database
 ######################################################################
+
+# Document the type of authorization required
+authorizations = {"apikey": {"type": "apiKey", "in": "header", "name": "X-Api-Key"}}
+
+######################################################################
+# Configure Swagger before initializing it
+######################################################################
+api = Api(
+    app,
+    version="1.0.0",
+    title="Pet Demo REST API Service",
+    description="This is a sample server Pet store server.",
+    default="pets",
+    default_label="Pet shop operations",
+    doc="/apidocs",  # default also could use doc='/apidocs/'
+    authorizations=authorizations,
+    prefix="/api",
+)
 
 
 ######################################################################

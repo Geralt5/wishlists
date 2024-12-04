@@ -23,8 +23,8 @@ import os
 import logging
 from unittest import TestCase
 from unittest.mock import patch
-from wsgi import app
 from service.models import Wishlist, Items, db, DataValidationError
+from wsgi import app
 from tests.factories import WishlistFactory
 
 
