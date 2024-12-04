@@ -672,6 +672,7 @@ class WishlistMarkFavoriteResource(Resource):
         return wishlist.serialize(), status.HTTP_200_OK
 
 
+# This is the Query for Items (Some problems occur)
 """
 @api.route("/items")
 @api.param("")
