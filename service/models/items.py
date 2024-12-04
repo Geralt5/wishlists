@@ -134,24 +134,3 @@ class Items(db.Model, PersistentBase):
         )
 
     # The following code will cause errors for the Items RestAPI
-
-    """
-    @classmethod
-    def query(cls, **kwargs):
-        logger.info("Querying items with filters: %s", kwargs)
-        query = cls.query
-
-        if "wishlist_id" in kwargs:
-            query = query.filter(cls.wishlist_id == kwargs["wishlist_id"])
-        if "name" in kwargs:
-            query = query.filter(cls.name.ilike(f"%{kwargs['name']}%"))
-        if "price" in kwargs:
-            query = query.filter(cls.price == kwargs["price"])
-        if "category" in kwargs:
-            query = query.filter(cls.category == kwargs["category"])
-        if "is_favorite" in kwargs:
-            query = query.filter(cls.is_favorite == kwargs["is_favorite"])
-
-        return query.all()
-    """
-
