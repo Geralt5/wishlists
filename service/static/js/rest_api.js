@@ -85,7 +85,7 @@ $(function () {
 
         let ajax = $.ajax({
             type: "GET",
-            url: `/wishlists/${wishlist_id}`,
+            url: `/api/wishlists/${wishlist_id}`,
             contentType: "application/json",
             data: ''
         })
@@ -116,7 +116,7 @@ $(function () {
     
         let ajax = $.ajax({
             type: "POST",
-            url: "/wishlists",
+            url: "/api/wishlists",
             contentType: "application/json",
             data: JSON.stringify({
                 name: name,
@@ -160,7 +160,7 @@ $(function () {
         
         let ajax = $.ajax({
             type: "PUT",
-            url: `/wishlists/${wishlist_id}`,
+            url: `/api/wishlists/${wishlist_id}`,
             contentType: "application/json",
             data: JSON.stringify({
                 name: name,
@@ -208,7 +208,7 @@ $(function () {
 
         let ajax = $.ajax({
             type: "GET",
-            url: `/wishlists?${queryString}`,
+            url: `/api/wishlists?${queryString}`,
             contentType: "application/json",
             data: ''
         })
@@ -264,7 +264,7 @@ $(function () {
 
         let ajax = $.ajax({
             type: "DELETE",
-            url: `/wishlists/${id}`,
+            url: `/api/wishlists/${id}`,
             contentType: "application/json",
             data: '',
         })
@@ -297,7 +297,7 @@ $(function () {
         
         let ajax = $.ajax({
             type: "POST",
-            url: `/wishlists/${wishlist_id}/items`,
+            url: `/api/wishlists/${wishlist_id}/items`,
             contentType: "application/json",
             data: JSON.stringify({
                 name: name,
@@ -339,7 +339,7 @@ $(function () {
         
         let ajax = $.ajax({
             type: "PUT",
-            url: `/wishlists/${wishlist_id}/items/${item_id}`,
+            url: `/api/wishlists/${wishlist_id}/items/${item_id}`,
             contentType: "application/json",
             data: JSON.stringify({
                 name: name,
@@ -398,8 +398,7 @@ $(function () {
 
         let ajax = $.ajax({
             type: "GET",
-            //url: `/pets?${queryString}`,
-            url: `/wishlists/${wish_id}/items${queryString}`,
+            url: `/api/wishlists/${wish_id}/items${queryString}`,
             contentType: "application/json",
             data: ''
         })
@@ -454,7 +453,7 @@ $(function () {
 
         let ajax = $.ajax({
             type: "DELETE",
-            url: `/wishlists/${wishlist_id}/items/${item_id}`,
+            url: `/api/wishlists/${wishlist_id}/items/${item_id}`,
             contentType: "application/json",
             data: '',
         })
@@ -493,7 +492,7 @@ $(function () {
     
         let ajax = $.ajax({
             type: "GET",
-            url: `/items${queryString}`,
+            url: `/api/items${queryString}`,
             contentType: "application/json"
         });
     
@@ -544,7 +543,7 @@ $(function () {
     
         let ajax = $.ajax({
             type: "GET",
-            url: `/wishlists/${wishlist_id}/items?${queryString}`, // Use the specified route
+            url: `/api/wishlists/${wishlist_id}/items?${queryString}`, // Use the specified route
             contentType: "application/json",
             data: "",
         });
