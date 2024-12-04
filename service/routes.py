@@ -22,28 +22,42 @@ and Delete Wishlist from the inventory of wishlists in the WishlistShop
 
 """
 
-"""
-Wishlist Store Service with Swagger
-
-Paths:
-------
-GET / - Displays a UI for Selenium testing
-GET /wishlists - Returns a list all of the Wishlists
-GET /wishlists/{id} - Returns the Wishlist with a given id number
-POST /wishlists - creates a new Wishlist record in the database
-PUT /wishlists/{id} - updates a Wishlist record in the database
-DELETE /wishlists/{id} - deletes a Wishlist record in the database
-"""
-
-
 from flask import jsonify, request, abort, url_for
 from flask import current_app as app  # Import Flask application
-from flask_restx import Resource, fields, reqparse, inputs, Model
-from datetime import datetime
+from flask_restx import Api, Resource, fields, reqparse, inputs
+
 from service.models import Wishlist, Items
 from service.common import status  # HTTP Status Codes
-from service.models import db  # or wherever db is initialized
-from . import api
+
+
+######################################################################
+# Wishlist Store Service with Swagger
+# Paths:
+# GET / - Displays a UI for Selenium testing
+# GET /wishlists - Returns a list all of the Wishlists
+# GET /wishlists/{id} - Returns the Wishlist with a given id number
+# POST /wishlists - creates a new Wishlist record in the database
+# PUT /wishlists/{id} - updates a Wishlist record in the database
+# DELETE /wishlists/{id} - deletes a Wishlist record in the database
+######################################################################
+
+# Document the type of authorization required
+authorizations = {"apikey": {"type": "apiKey", "in": "header", "name": "X-Api-Key"}}
+
+######################################################################
+# Configure Swagger before initializing it
+######################################################################
+api = Api(
+    app,
+    version="1.0.0",
+    title="Pet Demo REST API Service",
+    description="This is a sample server Pet store server.",
+    default="pets",
+    default_label="Pet shop operations",
+    doc="/apidocs",  # default also could use doc='/apidocs/'
+    authorizations=authorizations,
+    prefix="/api",
+)
 
 
 ######################################################################
@@ -272,6 +286,8 @@ class WishlistCollection(Resource):
 @api.route("/wishlists/<int:wishlist_id>")
 @api.param("wishlist_id", "The Wishlist identifier")
 class WishlistResource(Resource):
+    """Wishlist Class Function"""
+
     # ------------------------------------------------------------------
     # RETRIEVE A WISHLIST
     # ------------------------------------------------------------------
@@ -463,6 +479,7 @@ class ItemCollection(Resource):
 @api.route("/wishlists/<int:wishlist_id>/items/<int:item_id>")
 @api.param("item_id", "The Item identifier")
 class ItemResource(Resource):
+    """Item Class Function"""
 
     # ------------------------------------------------------------------
     # UPDATE AN ITEM
@@ -557,6 +574,8 @@ class ItemResource(Resource):
 @api.route("/wishlists/<int:wishlist_id>/items/<int:item_id>/favorite")
 @api.param("")
 class ItemMarkFavoriteResource(Resource):
+    """Wishlist Favorite Class Function"""
+
     @api.doc("mark_items_favorite")
     @api.response(404, "Items favorite not marked")
     def put(self, wishlist_id, item_id):
@@ -619,6 +638,8 @@ class ItemMarkFavoriteResource(Resource):
 @api.route("/wishlists/<int:wishlist_id>/favorite")
 @api.param("")
 class WishlistMarkFavoriteResource(Resource):
+    """Item Favorite Class Function"""
+
     @api.doc("mark_items_favorite")
     @api.response(404, "Wishlists favorite not marked")
     def put(self, wishlist_id):
@@ -670,53 +691,3 @@ class WishlistMarkFavoriteResource(Resource):
         app.logger.info("Wishlist [%s] canceled as favorite", wishlist_id)
 
         return wishlist.serialize(), status.HTTP_200_OK
-
-
-# This is the Query for Items (Some problems occur)
-"""
-@api.route("/items")
-@api.param("")
-class ItemsQueryResource(Resource):
-    @api.doc("query_items_attributes")
-    @api.response(404, "Items attribute does not exist")
-    def get(self):
-        
-        # Query items across all wishlists by multiple attributes.
-        
-        # Extract query parameters
-        filters = {
-            "name": request.args.get("name"),
-            "category": request.args.get("category"),
-            "price": request.args.get("price", type=float),
-            "updated_time": request.args.get("updated_time"),
-            "is_favorite": request.args.get(
-                "is_favorite", type=lambda x: x.lower() in ["true", "1", "yes"]
-            ),
-        }
-
-        app.logger.info("Querying items with filters: %s", filters)
-
-        # Start making the query
-        query = db.session.query(Items)
-
-        # Apply the filters for the query
-        if filters["name"]:
-            query = query.filter(Items.name.ilike(f"%{filters['name']}%"))
-        if filters["category"]:
-            query = query.filter(Items.category.ilike(f"%{filters['category']}%"))
-        if filters["price"] is not None:
-            query = query.filter(Items.price == filters["price"])
-        if filters["updated_time"]:
-            query = query.join(Wishlist).filter(
-                Wishlist.updated_time == filters["updated_time"]
-            )
-        if filters["is_favorite"] is not None:
-            query = query.filter(Items.is_favorite == filters["is_favorite"])
-
-        items = query.all()
-
-        results = [item.serialize() for item in items]
-
-        app.logger.info("Found %d items with the provided filters", len(results))
-        return results, status.HTTP_200_OK
-"""
